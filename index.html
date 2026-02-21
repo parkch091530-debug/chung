@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>고객 데이터 관리 대시보드 시안</title>
+    <style>
+      :root {
+        --bg: #f3f6fb;
+        --panel: #ffffff;
+        --text: #17223b;
+        --muted: #5a6885;
+        --accent: #2f6bff;
+        --accent-soft: #e8efff;
+        --ok: #17b26a;
+        --warn: #f79009;
+        --radius: 16px;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, sans-serif;
+        background: linear-gradient(160deg, #eef3ff 0%, #f7f9fd 45%, #edf8f2 100%);
+        color: var(--text);
+      }
+      .layout {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+      }
+      .sidebar {
+        background: #0f172a;
+        color: #dbe4ff;
+        padding: 24px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .brand {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .brand h1 { font-size: 17px; margin: 0 0 4px; color: #fff; }
+      .brand p { margin: 0; font-size: 13px; color: #c5d2ff; }
+      .menu { display: grid; gap: 8px; }
+      .menu button {
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        text-align: left;
+        color: #cdd8ff;
+        padding: 11px 12px;
+        background: transparent;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .menu button.active,
+      .menu button:hover {
+        background: rgba(99, 127, 255, 0.22);
+        color: #fff;
+      }
+      .content { padding: 24px; }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      .topbar h2 { margin: 0; font-size: 24px; }
+      .topbar p { margin: 4px 0 0; color: var(--muted); }
+      .actions {
+        display: flex;
+        gap: 10px;
+      }
+      .actions button {
+        border: none;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-weight: 700;
+      }
+      .actions .secondary {
+        background: #fff;
+        border: 1px solid #d9e1f6;
+        color: #334166;
+      }
+      .actions .primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(150px, 1fr));
+        gap: 14px;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid #e3e9f5;
+        border-radius: var(--radius);
+        padding: 16px;
+      }
+      .card .label { color: var(--muted); font-size: 13px; }
+      .card .value { font-size: 26px; margin: 8px 0 6px; font-weight: 800; }
+      .chip {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 4px 8px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .chip.ok { background: #e9f9f1; color: #168c56; }
+      .chip.warn { background: #fff6e6; color: #b35504; }
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 14px;
+        margin-top: 14px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      th, td {
+        padding: 12px 8px;
+        border-bottom: 1px solid #edf1fb;
+        font-size: 14px;
+      }
+      th { text-align: left; color: var(--muted); }
+      .tag {
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: #3456c8;
+        font-weight: 700;
+      }
+      .todo {
+        display: grid;
+        gap: 9px;
+        margin-top: 8px;
+      }
+      .todo li {
+        list-style: none;
+        background: #f8faff;
+        border: 1px solid #e7edfb;
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      @media (max-width: 960px) {
+        .layout { grid-template-columns: 1fr; }
+        .sidebar { display: none; }
+        .cards { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <h1>고객데이터관리</h1>
+          <p>AppSheet 초기 운영 시안</p>
+        </div>
+        <div class="menu">
+          <button class="active">대시보드</button>
+          <button>고객 목록</button>
+          <button>상담 기록</button>
+          <button>계약/결제</button>
+          <button>알림 센터</button>
+          <button>권한 관리</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <h2>고객 운영 현황</h2>
+            <p>모바일/PC 공용으로 확인 가능한 업무 화면 샘플</p>
+          </div>
+          <div class="actions">
+            <button class="secondary">CSV 내보내기</button>
+            <button class="secondary" onclick="window.open('./GOOGLE_APPSHEET_SETUP.md', '_blank')">Google 적용 가이드</button>
+            <button class="primary">+ 신규 고객 등록</button>
+          </div>
+        </header>
+
+        <section class="cards">
+          <article class="card">
+            <div class="label">총 고객 수</div>
+            <div class="value">1,284</div>
+            <span class="chip ok">+12% 지난달 대비</span>
+          </article>
+          <article class="card">
+            <div class="label">오늘 신규 등록</div>
+            <div class="value">29</div>
+            <span class="chip ok">목표 90% 달성</span>
+          </article>
+          <article class="card">
+            <div class="label">미응답 문의</div>
+            <div class="value">17</div>
+            <span class="chip warn">우선 처리 필요</span>
+          </article>
+          <article class="card">
+            <div class="label">권한 요청</div>
+            <div class="value">3</div>
+            <span class="chip warn">관리자 승인 대기</span>
+          </article>
+        </section>
+
+        <section class="grid">
+          <article class="card">
+            <h3>최근 고객 업데이트</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>고객명</th>
+                  <th>담당자</th>
+                  <th>최근 활동</th>
+                  <th>상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>김서윤</td>
+                  <td>이민재</td>
+                  <td>2026-02-21 10:22</td>
+                  <td><span class="tag">상담중</span></td>
+                </tr>
+                <tr>
+                  <td>박지훈</td>
+                  <td>정수빈</td>
+                  <td>2026-02-21 09:13</td>
+                  <td><span class="tag">결제대기</span></td>
+                </tr>
+                <tr>
+                  <td>최유나</td>
+                  <td>김도윤</td>
+                  <td>2026-02-20 16:45</td>
+                  <td><span class="tag">유지고객</span></td>
+                </tr>
+                <tr>
+                  <td>오하준</td>
+                  <td>이예린</td>
+                  <td>2026-02-20 15:02</td>
+                  <td><span class="tag">재접촉필요</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="card">
+            <h3>오늘 할 일</h3>
+            <ul class="todo">
+              <li><span>개인정보 마스킹 점검</span> <span class="chip warn">중요</span></li>
+              <li><span>신규 담당자 권한 세팅</span> <span class="chip ok">완료</span></li>
+              <li><span>미응답 17건 후속 연락</span> <span class="chip warn">진행</span></li>
+              <li><span>주간 백업 결과 확인</span> <span class="chip ok">완료</span></li>
+            </ul>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
